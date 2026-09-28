@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SafeChat Deep Learning</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css', v='3') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div id="authPage" class="auth-page">
+        <div class="auth-card">
+            <h1>SafeChat</h1>
+            <p>Deep Learning Toxic Comment Classification</p>
+
+            <div class="tabs">
+                <button class="tab active" id="loginTab" type="button" onclick="switchAuth('login')">Sign In</button>
+                <button class="tab" id="signupTab" type="button" onclick="switchAuth('signup')">Sign Up</button>
+            </div>
+
+            <input id="username" type="text" placeholder="Username">
+            <input id="password" type="password" placeholder="Password">
+
+            <button id="authBtn" type="button" onclick="submitAuth()">Sign In</button>
+            <p id="authStatus"></p>
+        </div>
+    </div>
+
+    <div id="appPage" class="app-shell hidden">
+        <aside class="sidebar">
+            <div class="brand-row">
+                <div class="brand-left">
+                    <div class="brand-logo">💬</div>
+                    <h2>SafeChat</h2>
+                </div>
+                <button class="logout-btn" type="button" onclick="logoutUser()" title="Logout">⇱</button>
+            </div>
+
+            <div class="profile-card">
+                <div class="profile-avatar" id="profileAvatar">G</div>
+                <div class="profile-info">
+                    <h3 id="profileName">gayathri</h3>
+                    <p id="profileHandle">@gayathri_ml_03</p>
+                </div>
+            </div>
+
+            <div class="section-label">CONVERSATIONS</div>
+            <div id="userList" class="conversation-list"></div>
+
+            <div class="accuracy-box">
+                <button id="accuracyBtn" type="button" onclick="loadAccuracyGraph()">View Accuracy Graph</button>
+                <div class="chart-wrapper">
+                    <canvas id="accuracyChart"></canvas>
+                </div>
+                <div id="accuracyText" class="accuracy-result"></div>
+            </div>
+        </aside>
+
+        <main class="content-area">
+            <div id="welcomePanel" class="welcome-screen">
+                <div class="welcome-icon">💬</div>
+                <h1>Welcome to SafeChat</h1>
+                <p>
+                    Select a person from the sidebar to start a conversation.
+                    The system checks messages before sending and suggests safer replacements when needed.
+                </p>
+
+                <div class="info-cards">
+                    <div class="info-card toxic-card">
+                        <div class="info-icon">🚨</div>
+                        <div>
+                            <h4>Toxic Detection</h4>
+                            <p>Harmful words are checked in real time.</p>
+                        </div>
+                    </div>
+
+                    <div class="info-card suggestion-card">
+                        <div class="info-icon">💡</div>
+                        <div>
+                            <h4>Smart Suggestions</h4>
+                            <p>Replace toxic words using automatic suggestions.</p>
+                        </div>
+                    </div>
+
+                    <div class="info-card safe-card">
+                        <div class="info-icon">✅</div>
+                        <div>
+                            <h4>Safe Sending</h4>
+                            <p>Messages are stored only after they pass the checks.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="chatPanel" class="chat-screen hidden">
+                <div class="chat-topbar">
+                    <div class="chat-user">
+                        <div id="chatAvatar" class="chat-avatar">AJ</div>
+                        <div>
+                            <h3 id="chatUserName">Alice Johnson</h3>
+                            <p id="chatUserTag">@alice</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="messages" class="messages"></div>
+
+                <div id="predictInfo" class="predict-info hidden"></div>
+                <div id="suggestionArea" class="suggestion-area hidden"></div>
+
+                <div class="composer">
+                    <input id="msg" type="text" placeholder="Type a message..." autocomplete="off">
+                    <button id="sendBtn" type="button" disabled>Send</button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js', v='3') }}"></script>
+</body>
+</html>
